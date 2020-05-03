@@ -9,7 +9,7 @@ class CreateUserAccounts < ActiveRecord::Migration[6.0]
       t.string :city
       t.string :state, limit: 2
       t.string :country, limit: 2
-      t.string :referal_code
+      t.string :referral_code
 
       t.timestamps
     end

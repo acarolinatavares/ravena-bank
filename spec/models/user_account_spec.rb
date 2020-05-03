@@ -2,18 +2,20 @@
 #
 # Table name: user_accounts
 #
-#  id           :uuid             not null, primary key
-#  birth_date   :date
-#  city         :string
-#  country      :string(2)
-#  cpf          :string           not null
-#  email        :string
-#  gender       :string(1)
-#  name         :string
-#  referal_code :string
-#  state        :string(2)
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id              :uuid             not null, primary key
+#  birth_date      :date
+#  city            :string
+#  country         :string(2)
+#  cpf             :string           not null
+#  email           :string
+#  gender          :string(1)
+#  invitation_code :string
+#  name            :string
+#  referral_code   :string
+#  state           :string(2)
+#  status          :integer          default("pending")
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #
 require 'rails_helper'
 
