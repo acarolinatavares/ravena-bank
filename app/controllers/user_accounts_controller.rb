@@ -8,6 +8,6 @@ class UserAccountsController < ApplicationController
 
   def user_account_params
     params.require(:user_account).permit(:birth_date, :city, :country, :cpf,
-                                         :email, :gender, :name, :state)
+                                         :email, :gender, :name, :state, :referral_code)
   end
 end
