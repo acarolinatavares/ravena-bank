@@ -21,6 +21,11 @@
 require 'cpf_cnpj'
 
 class UserAccount < ApplicationRecord
+  serialize :birth_date,  EncryptedCoder.new
+  serialize :cpf,         EncryptedCoder.new
+  serialize :email,       EncryptedCoder.new
+  serialize :name,        EncryptedCoder.new
+
   validates :cpf, presence: true, uniqueness: true
   validate :valid_cpf
 
