@@ -65,7 +65,7 @@ To send a Pull Request an issue, go to the [Pull Requests page](https://github.c
 
 #### Committing
 
-Before allowing you to commit your code, [Overcommit](https://github.com/sds/overcommit) will run hooks, such as RuboCop, to the check your code.
+Before allowing you to commit your code, [Overcommit](https://github.com/sds/overcommit) will run hooks, such as RuboCop, to check your code.
 
 Install Overcommit hooks:
 
@@ -73,8 +73,6 @@ Install Overcommit hooks:
 $ overcommit --sign
 $ overcommit --install
 ```
-
-Now you can commit.
 
 ## License
 
