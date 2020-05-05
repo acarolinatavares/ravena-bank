@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'UserAccounts', type: :request do
-  PENDING_PARAMS = {
+  let(:pending_params) {{
       name: 'Lawrence Marvin',
       email: 'homer@denesik.name',
       cpf: '81849699968',
@@ -10,9 +10,9 @@ RSpec.describe 'UserAccounts', type: :request do
       state: 'RJ',
       country: 'BR',
       password: '123456'
-  }
+  }}
 
-  COMPLETE_PARAMS = {
+  let(:complete_params) {{
       name: 'Lawrence Marvin',
       email: 'homer@denesik.name',
       cpf: '81849699968',
@@ -22,31 +22,31 @@ RSpec.describe 'UserAccounts', type: :request do
       country: 'BR',
       password: '123456',
       birth_date: '01/07/1991'
-  }
+  }}
 
-  WRONG_PARAMS = {
+  let(:wrong_params) {{
       name: 'Lawrence Marvin',
       email: 'djhfbkajsdhbfk',
       password: '123456'
-  }
+  }}
 
   describe 'POST create' do
     it 'must return an error if tries to create a user_account with wrong params' do
-      post '/user_accounts', params: { user_account: WRONG_PARAMS }
+      post '/user_accounts', params: { user_account: wrong_params }
       expect(response).to have_http_status(:unprocessable_entity)
       expect(JSON.parse(response.body)['message']).
           to eq('Error when trying to register account opening request.')
     end
 
     it 'must create a user_account with status PENDING' do
-      post '/user_accounts', params: { user_account: PENDING_PARAMS }
+      post '/user_accounts', params: { user_account: pending_params }
       expect(response).to have_http_status(:created)
       expect(JSON.parse(response.body)['message']).
           to eq('Account opening request made successfully. Status: Pending.')
     end
 
     it 'must create a user_account with status COMPLETE' do
-      post '/user_accounts', params: { user_account: COMPLETE_PARAMS }
+      post '/user_accounts', params: { user_account: complete_params }
 
       user = UserAccount.find_by(cpf: '81849699968')
 
@@ -149,7 +149,7 @@ RSpec.describe 'UserAccounts', type: :request do
       account = UserAccount.new(cpf: '81849699968',
                                      password: '123456',
                                      password_confirmation: '123456')
-      UserAccount::CreateOperation.new(account, COMPLETE_PARAMS).process
+      UserAccount::CreateOperation.new(account, complete_params).process
 
       account = UserAccount.find_by(cpf: '81849699968')
 
