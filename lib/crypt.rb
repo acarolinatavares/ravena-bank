@@ -1,4 +1,3 @@
-# Based on https://scotch.io/@jiggs/how-to-encrypt-data-without-gem-in-rails
 module Crypt
   class << self
     def encrypt(value)

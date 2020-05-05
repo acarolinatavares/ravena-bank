@@ -1,4 +1,7 @@
 # With this code, it's possible to search for a user account with encrypted CPF
+# Fonts:
+# 1 - Based on https://scotch.io/@jiggs/how-to-encrypt-data-without-gem-in-rails
+# 2 - https://ruby-doc.org/core-2.3.0/Marshal.html
 class EncryptedCoder
   include Crypt
 
