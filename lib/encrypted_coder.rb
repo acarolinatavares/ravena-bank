@@ -1,3 +1,4 @@
+# With this code, it's possible to search for a user account with encrypted CPF
 class EncryptedCoder
   include Crypt
 
