@@ -55,9 +55,13 @@ class UserAccount < ApplicationRecord
   end
 
   def update_status_and_create_referral_code
-    if !empty_values? && self.referral_code.nil?
-      self.update(referral_code: self.id[0..7], status: :complete)
+    if empty_values?
+      new_status = :pending
+    else
+      self.update_column(:referral_code, self.id[0..7]) if self.referral_code.nil?
+      new_status = :complete
     end
+    self.update_column(:status, new_status) if self.status != new_status
   end
 
   def valid_birth

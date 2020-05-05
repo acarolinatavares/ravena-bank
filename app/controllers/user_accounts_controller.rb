@@ -19,18 +19,10 @@ class UserAccountsController < ApplicationController
   end
 
   def auth_user
-    render(json: { error: 'The password is required.' }, status: :unauthorized) && (return) unless auth_params[:password]
+    operation = UserAccount::AuthOperation.new(auth_params).process
+    render(json: { error: operation.error_response }, status: :unauthorized) && (return) if operation.error_response
 
-    @user_account = UserAccount.find_or_initialize_by(cpf: auth_params[:cpf])
-    unless @user_account.id
-      @user_account.password = auth_params[:password]
-      @user_account.password_confirmation = auth_params[:password]
-      return
-    end
-
-    unless @user_account.authenticate(auth_params[:password])
-      render json: { error: 'The password is wrong.' }, status: :unauthorized
-    end
+    @user_account = operation.user_account
   end
 
   def auth_params

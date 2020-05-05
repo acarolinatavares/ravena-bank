@@ -15,7 +15,7 @@ class UserAccount::CreateOperation
 
     if @user_account.valid? && @user_account.save
       @json_response = { message: 'Account opening request made successfully. Status: Pending.' }
-      if @user_account.not_empty_values?
+      if @user_account.complete?
         @json_response = {
             message: 'Account opening request made successfully. Status: Complete.',
             referral_code: @user_account.referral_code
