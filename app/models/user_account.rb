@@ -3,12 +3,12 @@
 # Table name: user_accounts
 #
 #  id              :uuid             not null, primary key
-#  birth_date      :date
+#  birth_date      :string
 #  city            :string
 #  country         :string(2)
 #  cpf             :string           not null
 #  email           :string
-#  gender          :string(1)
+#  gender          :string
 #  invitation_code :string
 #  name            :string
 #  password_digest :string
@@ -33,12 +33,15 @@ class UserAccount < ApplicationRecord
   serialize :name,        EncryptedCoder.new
 
   validates :cpf, presence: true, uniqueness: true
-  validate :valid_cpf
-  validates :password, presence: true, length: {minimum: 6}
+  validates :password_digest, presence: true, length: { minimum: 6 }
   validates :email,
-            format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i},
-            uniqueness: {case_sensitive: false},
+            format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i },
+            uniqueness: { case_sensitive: false },
             allow_blank: true
+  validates :city, length: { is: 2 }, allow_blank: true
+  validates :country, length: { is: 2 }, allow_blank: true
+  validate :valid_cpf
+  validate :valid_birth
 
   after_save :create_referral_code
 
@@ -54,5 +57,10 @@ class UserAccount < ApplicationRecord
     if self.complete? && self.referral_code.nil?
       self.update_attribute(:referral_code, self.id[0..7])
     end
+  end
+
+  def valid_birth
+    date = Date.parse(self.birth_date) rescue false
+    errors.add(:birth_date, 'is not a valid birth_date') if !date || date >= Date.today
   end
 end

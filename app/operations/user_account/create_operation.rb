@@ -1,23 +1,26 @@
 class UserAccount::CreateOperation
   attr_reader :json_response, :status
-  def initialize(params)
+  def initialize(user_account, params)
     @params = params
-    @user_account = UserAccount.find_or_initialize_by(params[:cpf])
+    @user_account = user_account
   end
 
   def process
-    check_referral_code if @params[:referral_code].present?
+    if @params[:referral_code].present?
+      return self unless check_referral_code
+    end
 
     @user_account.assign_attributes(@params)
     @status = @user_account.id.nil? ? :created : :ok
 
     if @user_account.valid? && @user_account.save
       @json_response = { message: 'Account opening request made successfully. Status: Pending.' }
-      update_account_status if @user_account.attributes.values.include?(nil)
-      return
+      update_account_status unless empty_values?
+      return self
     end
 
     return_error(@user_account.errors)
+    self
   end
 
   private
@@ -31,13 +34,13 @@ class UserAccount::CreateOperation
   end
 
   def check_referral_code
-    if User.find_by(referral_code: @params[:referral_code])
+    if UserAccount.find_by(referral_code: @params[:referral_code])
       @params[:invitation_code] = @params[:referral_code]
-      @params.delete(:referral_code)
-    else
-      return_error('The referral code does not belongs to any account.')
-      nil
+      @params = @params.delete(:referral_code)
+      return true
     end
+    return_error('The referral code does not belongs to any account.')
+    false
   end
 
   def return_error(errors)
@@ -46,5 +49,11 @@ class UserAccount::CreateOperation
         errors: errors
     }
     @status = :unprocessable_entity
+  end
+
+  def empty_values?
+    @user_account.attributes.all? do |k, v|
+      %w[name email birth_date cpf gender city country state].include?(k) || v.blank?
+    end
   end
 end

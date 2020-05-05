@@ -3,12 +3,12 @@
 # Table name: user_accounts
 #
 #  id              :uuid             not null, primary key
-#  birth_date      :date
+#  birth_date      :string
 #  city            :string
 #  country         :string(2)
 #  cpf             :string           not null
 #  email           :string
-#  gender          :string(1)
+#  gender          :string
 #  invitation_code :string
 #  name            :string
 #  password_digest :string

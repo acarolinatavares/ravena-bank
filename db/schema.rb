@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(version: 2020_05_05_014538) do
     t.string "name"
     t.string "email"
     t.string "cpf", null: false
-    t.date "birth_date"
-    t.string "gender", limit: 1
+    t.string "birth_date"
+    t.string "gender"
     t.string "city"
     t.string "state", limit: 2
     t.string "country", limit: 2
