@@ -1,24 +1,78 @@
-# README
+# Ravena Bank
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A small api to open account
 
-Things you may want to cover:
+## About
 
-* Ruby version
+This application has two endpoints, one for create or update an user account and one to list the indications of a given CPF.
 
-* System dependencies
+* POST /user_accounts;
+* GET  /user_accounts/list_indications
 
-* Configuration
+## System dependencies
 
-* Database creation
+* [Postgres](https://www.postgresql.org/docs/10/tutorial-install.html) - 10
+* [Ruby](https://www.ruby-lang.org/en/documentation/installation/) - 2.6.4
 
-* Database initialization
+## Getting started
 
-* How to run the test suite
+### Setup for development
 
-* Services (job queues, cache servers, search engines, etc.)
+Install all gems and create the development database for the first time:
 
-* Deployment instructions
+```bash
+$ bundle install
+$ rails db:create db:migrate
+```
 
-* ...
+### Running the server
+
+To run the server locally, run the command:
+
+```
+$ rails s
+```
+
+You can stop the server by pressing:
+
+```
+CTRL + C
+```
+
+### Running the tests
+
+Just run the command:
+
+```
+$ rspec
+```
+
+## Contributing
+
+Contributions are welcome.
+
+To report an issue, go to the [Issues page](https://github.com/acarolinatavares/ravena-bank/issues).
+
+To send a Pull Request an issue, go to the [Pull Requests page](https://github.com/acarolinatavares/ravena-bank/pulls).
+
+#### Committing
+
+Before allowing you to commit your code, [Overcommit](https://github.com/sds/overcommit) will run hooks, such as RuboCop, to the check your code.
+
+Install Overcommit hooks:
+
+```
+$ overcommit --sign
+$ overcommit --install
+```
+
+Now you can commit.
+
+## License
+
+This project is released under the [MIT License](https://opensource.org/licenses/MIT).
+
+## Credits
+
+Made by [Ana Carolina Tavares](https://www.linkedin.com/in/ana-carolina-tavares-4995a734/)
+

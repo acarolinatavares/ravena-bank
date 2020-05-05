@@ -14,7 +14,6 @@ gem 'rails', '~> 6.0.1'
 # format logs and reduce default logs
 gem 'lograge'
 gem 'logstash-event'
-gem 'rubocop'
 
 group :development, :test do
   gem 'annotate'
@@ -28,8 +27,10 @@ end
 
 group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'overcommit'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'rubocop', require: false
 end
 
 group :test do

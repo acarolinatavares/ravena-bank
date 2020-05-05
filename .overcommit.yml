@@ -1,0 +1,20 @@
+verify_signatures: false
+
+gemfile: Gemfile
+
+PreCommit:
+  BundleCheck:
+    enabled: true
+
+  ExecutePermissions:
+    enabled: true
+    exclude:
+      - 'bin/**/*'
+
+  HardTabs:
+    enabled: true
+
+  RuboCop:
+    enabled: true
+    on_warn: fail
+    command: ['bundle', 'exec', 'rubocop']
