@@ -41,10 +41,10 @@ class UserAccount < ApplicationRecord
   validates :state, length: { is: 2 }, allow_blank: true
   validates :country, length: { is: 2 }, allow_blank: true
   validate :valid_cpf
-  validate :valid_birth
+  validate :valid_birth, if: -> { self.birth_date}
 
   before_validation :remove_cpf_formatting
-  after_save :create_referral_code
+  after_save :update_status_and_create_referral_code
 
   enum status: [:pending, :complete]
 
@@ -54,9 +54,9 @@ class UserAccount < ApplicationRecord
     errors.add(:cpf, 'is not a valid CPF') unless CPF.valid?(cpf)
   end
 
-  def create_referral_code
-    if self.complete? && self.referral_code.nil?
-      self.update_attribute(:referral_code, self.id[0..7])
+  def update_status_and_create_referral_code
+    if !empty_values? && self.referral_code.nil?
+      self.update(referral_code: self.id[0..7], status: :complete)
     end
   end
 
@@ -68,5 +68,11 @@ class UserAccount < ApplicationRecord
   def remove_cpf_formatting
     document = CPF.new(cpf)
     self.cpf = document.stripped
+  end
+
+  def empty_values?
+    self.attributes.any? do |k, v|
+      %w[name email birth_date cpf gender city country state].include?(k) && v.blank?
+    end
   end
 end

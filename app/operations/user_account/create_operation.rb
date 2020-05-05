@@ -15,7 +15,12 @@ class UserAccount::CreateOperation
 
     if @user_account.valid? && @user_account.save
       @json_response = { message: 'Account opening request made successfully. Status: Pending.' }
-      update_account_status unless empty_values?
+      if @user_account.not_empty_values?
+        @json_response = {
+            message: 'Account opening request made successfully. Status: Complete.',
+            referral_code: @user_account.referral_code
+        }
+      end
       return self
     end
 
@@ -24,14 +29,6 @@ class UserAccount::CreateOperation
   end
 
   private
-
-  def update_account_status
-    @user_account.complete!
-    @json_response = {
-        message: 'Account opening request made successfully. Status: Complete.',
-        referral_code: @user_account.referral_code
-    }
-  end
 
   def check_referral_code
     if UserAccount.find_by(referral_code: @params[:referral_code])
@@ -49,11 +46,5 @@ class UserAccount::CreateOperation
         errors: errors
     }
     @status = :unprocessable_entity
-  end
-
-  def empty_values?
-    @user_account.attributes.any? do |k, v|
-      %w[name email birth_date cpf gender city country state].include?(k) && v.blank?
-    end
   end
 end

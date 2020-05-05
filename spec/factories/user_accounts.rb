@@ -30,14 +30,8 @@ FactoryBot.define do
     gender { 'F' }
     country { 'BR' }
     city { 'Rio de Janeiro' }
-    birth_date { Faker::Date.birthday(min_age: 18, max_age: 65) }
-
-    trait :valid_cpf do
-      cpf { CPF.generate(false) }
-    end
-
-    trait :invalid_cpf do
-      cpf { '11111111111' }
-    end
+    birth_date { '01/07/1991' }
+    cpf { CPF.generate(false) }
+    password { '123456' }
   end
 end
