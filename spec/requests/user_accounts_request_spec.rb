@@ -30,7 +30,7 @@ RSpec.describe 'UserAccounts', type: :request do
       password: '123456'
   }
 
-  describe "POST create" do
+  describe 'POST create' do
     it 'must return an error if tries to create a user_account with wrong params' do
       post '/user_accounts', params: { user_account: WRONG_PARAMS }
       expect(response).to have_http_status(:unprocessable_entity)
@@ -62,7 +62,7 @@ RSpec.describe 'UserAccounts', type: :request do
                                      password: '123456',
                                      password_confirmation: '123456')
       UserAccount::CreateOperation.new(user_account,
-                                       {cpf: '14308844797', name: 'Ana Carolina'}
+                                       { cpf: '14308844797', name: 'Ana Carolina' }
       ).process
 
       post '/user_accounts', params: { user_account:
@@ -93,7 +93,7 @@ RSpec.describe 'UserAccounts', type: :request do
                                      password: '123456',
                                      password_confirmation: '123456')
       UserAccount::CreateOperation.new(user_account,
-                                       {cpf: '14308844797', name: 'Ana Carolina'}
+                                       { cpf: '14308844797', name: 'Ana Carolina' }
       ).process
 
       post '/user_accounts', params: { user_account:
@@ -133,7 +133,7 @@ RSpec.describe 'UserAccounts', type: :request do
                                      password: '123456',
                                      password_confirmation: '123456')
       UserAccount::CreateOperation.new(user_account,
-                                       {cpf: '14308844797', name: 'Ana Carolina'}
+                                       { cpf: '14308844797', name: 'Ana Carolina' }
       ).process
 
       get '/user_accounts/list_indications', params: {
@@ -157,9 +157,9 @@ RSpec.describe 'UserAccounts', type: :request do
                                      password: '654321',
                                      password_confirmation: '654321')
       UserAccount::CreateOperation.new(user_account,
-                                       {cpf: '14308844797',
+                                       { cpf: '14308844797',
                                         name: 'Ana Carolina',
-                                        referral_code: account.referral_code}
+                                        referral_code: account.referral_code }
       ).process
 
       indicated_account = UserAccount.find_by(cpf: '14308844797')
@@ -169,7 +169,7 @@ RSpec.describe 'UserAccounts', type: :request do
       }
 
       expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)['indications'].first["name"]).to eq(indicated_account.name)
+      expect(JSON.parse(response.body)['indications'].first['name']).to eq(indicated_account.name)
     end
   end
 end

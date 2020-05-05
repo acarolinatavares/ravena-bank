@@ -2,19 +2,9 @@ AllCops:
   TargetRubyVersion: 2.6.3
   DisabledByDefault: true
   Exclude:
-    - '**/templates/**/*'
-    - '**/vendor/**/*'
-    - '**/vendor/**/.*'
-    - '**/node_modules/**/*'
-    - 'actionpack/lib/action_dispatch/journey/parser.rb'
     - 'db/**/*'
     - 'config/**/*'
-    - 'script/**/*'
     - 'bin/{rails,rake}'
-    - 'lib/mixtore/**/*'
-    - 'lib/grpc/**/*'
-    - 'app/mailers/admin_notification_mailer.rb'
-    - 'app/workers/slack_worker.rb'
 
 # Prefer &&/|| over and/or.
 Style/AndOr:

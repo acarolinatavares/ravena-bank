@@ -41,7 +41,7 @@ class UserAccount < ApplicationRecord
   validates :state, length: { is: 2 }, allow_blank: true
   validates :country, length: { is: 2 }, allow_blank: true
   validate :valid_cpf
-  validate :valid_birth, if: -> { self.birth_date}
+  validate :valid_birth, if: -> { self.birth_date }
 
   before_validation :remove_cpf_formatting
   after_save :update_status_and_create_referral_code

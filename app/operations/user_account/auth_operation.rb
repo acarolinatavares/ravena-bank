@@ -19,7 +19,7 @@ class UserAccount::AuthOperation
       return self
     end
 
-    @error_response =  'The password is wrong.' unless @user_account.authenticate(@password)
+    @error_response = 'The password is wrong.' unless @user_account.authenticate(@password)
     self
   end
 end
