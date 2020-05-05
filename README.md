@@ -47,6 +47,10 @@ Just run the command:
 $ rspec
 ```
 
+## Heroku
+
+The app is running on Heroku, so you can test the API using the url https://ravena-bank.herokuapp.com/
+
 ## Documentation
 
 Documentation on how to use the API is available [here](https://documenter.getpostman.com/view/3532987/SzmcZdfP).
