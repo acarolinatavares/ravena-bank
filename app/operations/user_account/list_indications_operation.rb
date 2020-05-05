@@ -15,7 +15,7 @@ class UserAccount::ListIndicationsOperation
         return self
       end
 
-      return_error('This functionality is only intended for accounts with complete status.')
+      return_error('This functionality is only intended for accounts with status complete.')
       @status = :bad_request
       return self
     end
