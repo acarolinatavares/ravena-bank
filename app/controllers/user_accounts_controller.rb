@@ -4,6 +4,11 @@ class UserAccountsController < ApplicationController
     render json: operation.json_response, status: operation.status
   end
 
+  def list_indications
+    operation = UserAccount::ListIndicationsOperation.new(params[:cpf]).process
+    render json: operation.json_response, status: operation.status
+  end
+
   private
 
   def user_account_params

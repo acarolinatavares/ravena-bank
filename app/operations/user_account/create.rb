@@ -36,7 +36,7 @@ class UserAccount::CreateOperation
       @params.delete(:referral_code)
     else
       return_error('The referral code does not belongs to any account.')
-      return
+      nil
     end
   end
 
@@ -45,6 +45,6 @@ class UserAccount::CreateOperation
         message: 'Error when trying to register account opening request.',
         errors: errors
     }
-    @status = :bad_request
+    @status = :unprocessable_entity
   end
 end
