@@ -26,6 +26,6 @@ class UserAccountsController < ApplicationController
   end
 
   def auth_params
-    params.permit(:cpf, :password)
+    params.require(:user_account).permit(:cpf, :password)
   end
 end
