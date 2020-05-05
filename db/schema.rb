@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_03_200444) do
+ActiveRecord::Schema.define(version: 2020_05_05_014538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -31,6 +31,8 @@ ActiveRecord::Schema.define(version: 2020_05_03_200444) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "status", default: 0
     t.string "invitation_code"
+    t.string "password_digest"
+    t.index ["cpf"], name: "index_user_accounts_on_cpf", unique: true
   end
 
 end
