@@ -58,16 +58,16 @@ RSpec.describe 'UserAccounts', type: :request do
     end
 
     it 'must update an existing user_account' do
-      user_account = UserAccount.new(cpf: '14308844797',
+      user_account = UserAccount.new(cpf: '28463777406',
                                      password: '123456',
                                      password_confirmation: '123456')
       UserAccount::CreateOperation.new(user_account,
-                                       { cpf: '14308844797', name: 'Ana Carolina' }
+                                       { cpf: '28463777406', name: 'Ana Carolina' }
       ).process
 
       post '/user_accounts', params: { user_account:
                                            {
-                                               cpf: '14308844797',
+                                               cpf: '28463777406',
                                                password: '123456',
                                                birth_date: '01/07/1991'
                                            }
@@ -77,7 +77,7 @@ RSpec.describe 'UserAccounts', type: :request do
 
     it 'must throw an error if tries to create a user_account with a nonexistent referral_code' do
       post '/user_accounts', params: { user_account: {
-          cpf: '14308844797',
+          cpf: '28463777406',
           password: '123456',
           referral_code: '65398298'
       } }
@@ -89,16 +89,16 @@ RSpec.describe 'UserAccounts', type: :request do
 
   describe 'auth' do
     it 'must require the correct password' do
-      user_account = UserAccount.new(cpf: '14308844797',
+      user_account = UserAccount.new(cpf: '28463777406',
                                      password: '123456',
                                      password_confirmation: '123456')
       UserAccount::CreateOperation.new(user_account,
-                                       { cpf: '14308844797', name: 'Ana Carolina' }
+                                       { cpf: '28463777406', name: 'Ana Carolina' }
       ).process
 
       post '/user_accounts', params: { user_account:
                                            {
-                                               cpf: '14308844797',
+                                               cpf: '28463777406',
                                                password: '76572524',
                                                birth_date: '01/07/1991'
                                            }
@@ -129,15 +129,15 @@ RSpec.describe 'UserAccounts', type: :request do
 
   describe 'GET list_indications' do
     it 'must return an error if tries to list indications of a pending account' do
-      user_account = UserAccount.new(cpf: '14308844797',
+      user_account = UserAccount.new(cpf: '28463777406',
                                      password: '123456',
                                      password_confirmation: '123456')
       UserAccount::CreateOperation.new(user_account,
-                                       { cpf: '14308844797', name: 'Ana Carolina' }
+                                       { cpf: '28463777406', name: 'Ana Carolina' }
       ).process
 
       get '/user_accounts/list_indications', params: {
-          user_account: { cpf: '14308844797', password: '123456' }
+          user_account: { cpf: '28463777406', password: '123456' }
       }
 
       expect(response).to have_http_status(:bad_request)
@@ -153,16 +153,16 @@ RSpec.describe 'UserAccounts', type: :request do
 
       account = UserAccount.find_by(cpf: '81849699968')
 
-      user_account = UserAccount.new(cpf: '14308844797',
+      user_account = UserAccount.new(cpf: '28463777406',
                                      password: '654321',
                                      password_confirmation: '654321')
       UserAccount::CreateOperation.new(user_account,
-                                       { cpf: '14308844797',
+                                       { cpf: '28463777406',
                                         name: 'Ana Carolina',
                                         referral_code: account.referral_code }
       ).process
 
-      indicated_account = UserAccount.find_by(cpf: '14308844797')
+      indicated_account = UserAccount.find_by(cpf: '28463777406')
 
       get '/user_accounts/list_indications', params: {
           user_account: { cpf: '81849699968', password: '123456' }

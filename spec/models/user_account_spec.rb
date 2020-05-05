@@ -48,8 +48,8 @@ RSpec.describe UserAccount, type: :model do
     end
 
     it 'should remove cpf formatting' do
-      user_account = create :user_account, cpf: '143.088.447-97'
-      expect(user_account.cpf).equal?('14308844797')
+      user_account = create :user_account, cpf: '827.051.430-68'
+      expect(user_account.cpf).equal?('82705143068')
     end
   end
 
