@@ -33,7 +33,7 @@ class UserAccount::CreateOperation
   def check_referral_code
     if UserAccount.find_by(referral_code: @params[:referral_code])
       @params[:invitation_code] = @params[:referral_code]
-      @params = @params.delete(:referral_code)
+      @params.delete(:referral_code)
       return true
     end
     return_error('The referral code does not belongs to any account.')
