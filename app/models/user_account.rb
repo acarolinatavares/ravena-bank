@@ -38,11 +38,12 @@ class UserAccount < ApplicationRecord
             format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i },
             uniqueness: { case_sensitive: false },
             allow_blank: true
-  validates :city, length: { is: 2 }, allow_blank: true
+  validates :state, length: { is: 2 }, allow_blank: true
   validates :country, length: { is: 2 }, allow_blank: true
   validate :valid_cpf
   validate :valid_birth
 
+  before_validation :remove_cpf_formatting
   after_save :create_referral_code
 
   enum status: [:pending, :complete]
@@ -62,5 +63,10 @@ class UserAccount < ApplicationRecord
   def valid_birth
     date = Date.parse(self.birth_date) rescue false
     errors.add(:birth_date, 'is not a valid birth_date') if !date || date >= Date.today
+  end
+
+  def remove_cpf_formatting
+    document = CPF.new(cpf)
+    self.cpf = document.stripped
   end
 end

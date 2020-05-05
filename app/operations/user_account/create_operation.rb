@@ -52,8 +52,8 @@ class UserAccount::CreateOperation
   end
 
   def empty_values?
-    @user_account.attributes.all? do |k, v|
-      %w[name email birth_date cpf gender city country state].include?(k) || v.blank?
+    @user_account.attributes.any? do |k, v|
+      %w[name email birth_date cpf gender city country state].include?(k) && v.blank?
     end
   end
 end
