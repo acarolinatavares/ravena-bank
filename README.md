@@ -11,8 +11,8 @@ This application has two endpoints, one for create or update an user account and
 
 ## System dependencies
 
-* [Postgres](https://www.postgresql.org/docs/10/tutorial-install.html) - 10
-* [Ruby](https://www.ruby-lang.org/en/documentation/installation/) - 2.6.4
+* Postgres - 11.5
+* Ruby - 2.6.3
 
 ## Getting started
 
@@ -46,6 +46,10 @@ Just run the command:
 ```
 $ rspec
 ```
+
+## Documentation
+
+Documentation on how to use the API is available [here](https://documenter.getpostman.com/view/3532987/SzmcZdfP).
 
 ## Contributing
 
